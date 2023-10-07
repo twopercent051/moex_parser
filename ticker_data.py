@@ -63,8 +63,8 @@ class TickerParser:
         if len(ticker_list) == 0:
             return
         last_date = self.__date_str_to_datetime(ticker_list[-1]["begin"])
-        # if last_date.date() != datetime.today().date():
-        #     return
+        if last_date.date() != datetime.today().date():
+            return
         quarter_list = self.__get_periodic_days(ticker_list=ticker_list[:-1], days=90)
         month_list = self.__get_periodic_days(ticker_list=ticker_list[:-1], days=30)
         year_data = self.__get_high_and_low(ticker_list=ticker_list[:-1])
