@@ -41,7 +41,8 @@ class TickerParser:
     def __get_high_and_low(ticker_list: List[dict]) -> PeriodicData:
         highs = [i["high"] for i in ticker_list]
         lows = [i["low"] for i in ticker_list]
-        return {"high": max(highs), "low": min(lows)}
+        return PeriodicData(high=max(highs), low=min(lows))
+        # return {"high": max(highs), "low": min(lows)}
 
     def __get_periodic_days(self, ticker_list: List[dict], days: int) -> List[dict]:
         result = []
@@ -51,13 +52,13 @@ class TickerParser:
         return result
 
     @staticmethod
-    def __get_bear_and_bull(periodic_data: PeriodicData, day_data: PeriodicData) -> TickerData:
+    def __get_bear_and_bull(periodic_data: PeriodicData, day_data: PeriodicData) -> BullAndBearData:
         bull = 1 if day_data.low < periodic_data.low else 0
         bear = 1 if day_data.high > periodic_data.high else 0
         neutral = 1 if (bull + bear == 0) else 0
-        return {"bull": bull, "bear": bear, "neutral": neutral}
+        return BullAndBearData(bull=bull, bear=bear, neutral=neutral)
 
-    async def get_data(self, ticker: str):
+    async def get_data(self, ticker: str) -> TickerData:
         start_date = (datetime.today() - timedelta(days=365)).strftime("%Y-%m-%d")
         ticker_list = await get_ticker_data(ticker=ticker, start_date=start_date)
         if len(ticker_list) == 0:
@@ -74,15 +75,13 @@ class TickerParser:
         year_bb = self.__get_bear_and_bull(periodic_data=year_data, day_data=day_data)
         quarter_bb = self.__get_bear_and_bull(periodic_data=quarter_data, day_data=day_data)
         month_bb = self.__get_bear_and_bull(periodic_data=month_data, day_data=day_data)
-        return {
-            "years_data": year_data,
-            "quarter_data": quarter_data,
-            "month_data": month_data,
-            "day_data": day_data,
-            "years_bb": year_bb,
-            "quarter_bb": quarter_bb,
-            "month_bb": month_bb,
-        }
+        return TickerData(year_data=year_data,
+                          quarter_data=quarter_data,
+                          month_data=month_data,
+                          day_data=day_data,
+                          year_bb=year_bb,
+                          quarter_bb=quarter_bb,
+                          month_bb=month_bb)
 
 
 async def main():

@@ -1,7 +1,6 @@
 import asyncio
-from datetime import datetime, timedelta
 
-from sqlalchemy import MetaData, DateTime, Column, Integer, String, select, insert, delete, update, null, func
+from sqlalchemy import MetaData, DateTime, Column, Integer, String, select, insert, delete
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, as_declarative
 
@@ -54,13 +53,6 @@ class BaseDAO:
     model = None
 
     @classmethod
-    async def get_one_or_none(cls, **filter_by):
-        async with async_session_maker() as session:
-            query = select(cls.model.__table__.columns).filter_by(**filter_by).limit(1)
-            result = await session.execute(query)
-            return result.mappings().one_or_none()
-
-    @classmethod
     async def get_many(cls, **filter_by) -> list:
         async with async_session_maker() as session:
             query = select(cls.model.__table__.columns).filter_by(**filter_by).order_by(cls.model.id.asc())
@@ -71,13 +63,6 @@ class BaseDAO:
     async def create(cls, **data):
         async with async_session_maker() as session:
             stmt = insert(cls.model).values(**data)
-            await session.execute(stmt)
-            await session.commit()
-
-    @classmethod
-    async def delete(cls, **data):
-        async with async_session_maker() as session:
-            stmt = delete(cls.model).filter_by(**data)
             await session.execute(stmt)
             await session.commit()
 
