@@ -1,10 +1,17 @@
 import asyncio
+import logging
 from datetime import datetime, timedelta
+
+import betterlogging as bl
 
 from models import TickersDAO, StatisticsDAO
 from ticker_data import TickerData, TickerParser
 
 ticker_data = TickerParser()
+
+logger = logging.getLogger(__name__)
+log_level = logging.INFO
+bl.basic_colorized_config(level=log_level)
 
 
 async def main():

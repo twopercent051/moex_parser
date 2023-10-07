@@ -13,3 +13,4 @@ urllib3==2.0.6
 APScheduler~=3.10.4
 pydantic~=2.4.2
 environs~=9.5.0
+betterlogging~=0.2.1
