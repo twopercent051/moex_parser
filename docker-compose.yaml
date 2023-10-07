@@ -11,7 +11,7 @@ services:
     working_dir: "/usr/src/app/${BOT_NAME:-tg_bot}"
     volumes:
     - .:/usr/src/app/${BOT_NAME:-tg_bot}
-    command: python3 -m bot
+    command: python3 -m moex_api
     restart: always
     env_file:
       - ".env"
