@@ -4,7 +4,11 @@ from sqlalchemy import MetaData, DateTime, Column, Integer, String, select, inse
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, as_declarative
 
-DATABASE_URL = f'mysql+aiomysql://twopercent:Stromabnehmer92@localhost:3306/test_db'
+from config import load_config
+
+config = load_config(".env")
+
+DATABASE_URL = f'mysql+aiomysql://{config.db.user}:{config.db.password}@{config.db.host}:{config.db.port}/{config.db.database}'
 
 engine = create_async_engine(DATABASE_URL)
 
