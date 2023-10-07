@@ -42,7 +42,6 @@ class TickerParser:
         highs = [i["high"] for i in ticker_list]
         lows = [i["low"] for i in ticker_list]
         return PeriodicData(high=max(highs), low=min(lows))
-        # return {"high": max(highs), "low": min(lows)}
 
     def __get_periodic_days(self, ticker_list: List[dict], days: int) -> List[dict]:
         result = []

@@ -10,7 +10,6 @@ SQLAlchemy==2.0.21
 typing_extensions==4.8.0
 urllib3==2.0.6
 
-APScheduler~=3.10.4
 pydantic~=2.4.2
 environs~=9.5.0
 betterlogging~=0.2.1

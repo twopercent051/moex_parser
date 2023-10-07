@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import time
 from datetime import datetime, timedelta
 
 import betterlogging as bl
@@ -41,14 +42,20 @@ async def main():
                                        f11180=data.year_bb.neutral,
                                        f11190=data.quarter_bb.neutral,
                                        f11200=data.month_bb.neutral)
-            print(f"{ticker} PARSED")
+            logger.info(f"{ticker} PARSED")
         else:
-            print(f"{ticker} is None")
+            logger.info(f"{ticker} is None")
 
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-        logger.info("Script Started")
-    except Exception as ex:
-        logger.error(ex)
+    while True:
+        if (datetime.utcnow() + timedelta(hours=3)).time().strftime("%H:%M:%S") == "23:26:00":
+            try:
+                asyncio.run(main())
+                logger.info("Script Started")
+            except Exception as ex:
+                logger.error(ex)
+            finally:
+                time.sleep(3)
+                logger.info("Script stopped")
+

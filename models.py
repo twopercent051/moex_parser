@@ -1,6 +1,6 @@
 import asyncio
 
-from sqlalchemy import MetaData, DateTime, Column, Integer, String, select, insert, delete
+from sqlalchemy import MetaData, DateTime, Column, Integer, String, select, insert
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, as_declarative
 
