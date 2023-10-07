@@ -34,6 +34,9 @@ async def main():
                                        f11180=data.year_bb.neutral,
                                        f11190=data.quarter_bb.neutral,
                                        f11200=data.month_bb.neutral)
+            print(f"{ticker} PARSED")
+        else:
+            print(f"{ticker} is None")
 
 
 if __name__ == "__main__":
