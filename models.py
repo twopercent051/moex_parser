@@ -80,9 +80,10 @@ class StatisticsDAO(BaseDAO):
 
 
 async def test():
-    users = await TickersDB.get_many()
-    print(users)
-    await engine.dispose()
+    # users = await TickersDB.get_many()
+    # print(users)
+    # await engine.dispose()
+    print(1.005**2000)
 
 
 if __name__ == "__main__":

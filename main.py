@@ -18,7 +18,6 @@ bl.basic_colorized_config(level=log_level)
 async def main():
     tickers = await TickersDAO.get_many()
     tickers = [i["f10960"] for i in tickers]
-    # tickers = ["LKOH", "SBER"]
     for ticker in tickers:
         data: TickerData = await ticker_data.get_data(ticker=ticker)
         if data:
