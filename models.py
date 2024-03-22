@@ -72,6 +72,13 @@ class BaseDAO:
             await engine.dispose()
             await session.commit()
 
+    @classmethod
+    async def create_many(cls, data: List[dict]):
+        async with async_session_maker() as session:
+            stmt = insert(cls.model).values(data)
+            await session.execute(stmt)
+            await session.commit()
+
 
 class TickersDAO(BaseDAO):
     model = TickersDB

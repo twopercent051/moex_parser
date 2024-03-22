@@ -52,6 +52,7 @@ class TickerParser:
 
     @staticmethod
     def __get_bear_and_bull(periodic_data: PeriodicData, day_data: PeriodicData) -> BullAndBearData:
+        # todo Поменять тут быков и медведей местами
         bull = 1 if day_data.low < periodic_data.low else 0
         bear = 1 if day_data.high > periodic_data.high else 0
         neutral = 1 if (bull + bear == 0) else 0
