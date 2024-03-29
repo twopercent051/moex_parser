@@ -72,7 +72,7 @@ async def main():
 
 if __name__ == "__main__":
     while True:
-        if (datetime.utcnow() + timedelta(hours=3)).time().strftime("%H:%M:%S") == "13:00:00":
+        if (datetime.utcnow() + timedelta(hours=3)).time().strftime("%H:%M:%S") == "23:30:00":
             logger.info("Script Started")
             try:
                 asyncio.run(main())
