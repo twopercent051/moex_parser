@@ -25,7 +25,7 @@ def paginator(data_list: list) -> tuple:
 async def five_creates(chunk: list):
     for _ in range(5):
         try:
-            await TickersDAO.create_many(data=list(chunk))
+            await StatisticsDAO.create_many(data=list(chunk))
             return
         except Exception as ex:
             logger.exception(ex)
