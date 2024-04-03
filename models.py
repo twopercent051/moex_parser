@@ -61,8 +61,9 @@ class BaseDAO:
         async with async_session_maker() as session:
             query = select(cls.model.__table__.columns).filter_by(**filter_by).order_by(cls.model.id.asc())
             result = await session.execute(query)
-            await engine.dispose()
-            return result.mappings().all()
+            # await engine.dispose()
+            rows = result.mappings().all()
+        return rows
 
     @classmethod
     async def create(cls, **data):
@@ -77,6 +78,7 @@ class BaseDAO:
         async with async_session_maker() as session:
             stmt = insert(cls.model).values(data)
             await session.execute(stmt)
+            await engine.dispose()
             await session.commit()
 
 
